@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>what is my location</title>
+    <link rel="icon" href="https://img.icons8.com/ios/50/000000/bookmark-ribbon--v1.png">
+    <style type="text/css">
+  
+        *{
+          margin: 0;
+          padding: 0;
+          font: inherit;
+        }
+        main{
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .geolocation {
+        background-color:#FFF;
+        margin: auto;
+        width: 80vw;
+        font-family: "Courier New", monospace;
+        text-align: center;
+        line-height: 1.2;
+        color: #121212;
+        overflow: hidden;
+        padding: 2.5em 0;
+
+        }
+        .geolocation h3 {
+        font-size: 1.75em;
+        }
+        .geolocation p {
+        font-size: 1.5em;
+        padding: 1.2em 0;
+        }
+        .geolocation p.datetime {
+        font-size: 1em;
+        }
+        .geolocation button.reload {
+            border: none;
+            cursor: pointer;
+            height: 35px;
+            width: 165px;
+            
+        }
+
+        
+
+      </style>
+</head>
+<body>
+    <main>
+        <div class="geolocation">
+            <div>
+                <p class="position"></p>
+            </div>
+            <button class="reload" onclick="reload();">reload</button>
+        </div>
+
+    </main>
+    
+
+
+
+    <script>
+        const options = { enableHighAccuracy: true, timeout: 5000,maximumAge: 0 };
+
+        function success(pos) {
+            document.querySelector('.geolocation p.position').innerHTML=`<br>Your current position is: (${pos.coords.latitude}, ${pos.coords.longitude}) Accuracy: ${pos.coords.accuracy} meters More or less. <br>`;
+        }
+
+        function error(err) {console.warn(`ERROR(${err.code}): ${err.message}`);}
+
+
+        function reload(){
+            navigator.geolocation.getCurrentPosition(success, error, options);
+
+        }
+        reload();
+        // TODO: add switch to autoreload
+        // setInterval(reload, 2000);
+
+        // TODO: add more info country, etc. using geolocation
+
+    </script>
+</body>
+</html>
